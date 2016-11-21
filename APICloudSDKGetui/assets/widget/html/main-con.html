@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0">
+    <title>APICloud</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <script type="text/javascript">
+
+            var uzgetuisdk = null;
+            apiready = function(){
+                uzgetuisdk = api.require('pushGeTui');
+                uzgetuisdk.payloadMessage(function(ret) {
+                    alert(ret.payload);
+                });
+            }
+
+            function initialize() {
+                // 初始化sdk并监听透传消息
+                uzgetuisdk.initialize(callback);
+            }
+
+            function callback(ret,err){
+              alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
+                var log;
+                switch(ret.type)
+                {
+                    case 'cid':
+                        log='cid:'+ret.cid;
+                        // 获取到cid后的回调通知
+                        document.getElementById("txt_getui_cid").innerHTML = "cid:" + ret.cid;
+                        break;
+                    case 'payload':
+                        log='payload:'+ret.payload;
+                        document.getElementById("txt_getui_taskid").innerHTML = "taskid:" + ret.taskId;
+                        document.getElementById("txt_getui_messageid").innerHTML = "messageid:" + ret.messageId;
+                        document.getElementById("txt_getui_payload").innerHTML = "payload:" + ret.payload;
+                        break;
+                    case'occurError':
+                        log='occurError';
+                        break;
+                    case 'sendMsgFeedback':
+                        log='sendMsgFeedback:'+ret.result+' messageid:'+ret.messageId;
+                        break;
+                }
+            }
+
+            function stopService() {
+                uzgetuisdk.stopService(function(ret) {
+                    // TODO:
+                });
+                document.getElementById("txt_getui_cid").innerHTML = "cid:";
+            }
+
+            function getVersion() {
+                uzgetuisdk.getVersion(function(ret) {
+                    document.getElementById("txt_getui_version").innerHTML = "version:" + ret.version;
+                });
+            }
+
+            function setTag() {
+                var param = {tags:"tag1,tag2"};
+                uzgetuisdk.setTag(param,function(ret) {
+                    document.getElementById("txt_getui_settag").innerHTML = "settag: "+ret.result;
+                });
+            }
+
+            function bindAlias() {
+               var param = {alias:"myalias"};
+               uzgetuisdk.bindAlias(param, function(ret, err) {
+                   alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
+               });
+            }
+
+            function unbindAlias() {
+              var param = {alias:"myalias"};
+              uzgetuisdk.unBindAlias(param, function(ret, err) {
+                   alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
+              });
+            }
+
+            function setSilentTime() {
+                var param = {beginHour:9,duration:12};
+                uzgetuisdk.setSilentTime(param,function(ret) {
+                    // TODO
+                });
+            }
+
+            function isPushTurnedOn() {
+                uzgetuisdk.isPushTurnedOn(function(ret) {
+                    document.getElementById("txt_getui_ispushturnedon").innerHTML = "isPushTurnedOn: "+ret.isOn;
+                });
+            }
+
+            function sendFeedbackMessage() {
+              var param = {
+                taskid:"GT_1012_AKMw2kc2Oj5Tzy1DvXjMQA",
+                messageid:"GT_1012_AKMw2kc2Oj5Tzy1DvXjMQA",
+                actionid:90001
+              }
+              uzgetuisdk.sendFeedbackMessage(param, function(ret, err) {
+                  alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
+              });
+            }
+            
+            function registerDeviceToken(){
+              uzgetuisdk.registerDeviceToken(function(ret, err){
+                alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
+              });
+            }
+            
+            function fetchClientId(){
+              uzgetuisdk.fetchClientId(function(ret, err){
+                alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
+              });
+            }
+
+            function sendMessage(argument) {
+              var param = {
+                taskid:"SX_1111_ABCDEFG",
+                extraData:"any_command"
+              }
+              uzgetuisdk.sendMessage(param);
+            }
+
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+        <div>
+            <input type="button" onclick="initialize()" value="初始化"/><br><br>
+            <input type="button" onclick="stopService()" value="停止服务"/><br>
+            <div id="txt_getui_cid">cid:</div>
+            <br>
+            <div>接收透传数据</div>
+            <div id="txt_getui_taskid">taskid:</div>
+            <div id="txt_getui_messageid">messageid:</div>
+            <div id="txt_getui_payload">payload:</div>
+            <br>
+            <input type="button" onclick="getVersion()" value="获取版本号"/><br>
+            <div id="txt_getui_version">version:</div>
+            <br>
+            <input type="button" onclick="setTag()" value="设置标签"/><br>
+            <div id="txt_getui_settag">settag:</div>
+            <br>
+            <input type="button" onclick="bindAlias()" value="绑定别名"/><br>
+            <div id="txt_getui_bindalias">bindAlias:</div>
+            <br>
+
+            <input type="button" onclick="unbindAlias()" value="解绑别名"/><br>
+            <div id="txt_getui_bindalias">unbindAlias:</div>
+            <br>
+
+            <input type="button" onclick="sendFeedbackMessage()" value="sendFeedbackMessage"/><br>
+            <div id="txt_getui_bindalias">sendFeedbackMessage:</div>
+            <br>
+
+            <input type="button" onclick="sendMessage()" value="sendMessage"/><br>
+            <div id="txt_getui_bindalias">sendMessage:</div>
+            <br>
+
+            <input type="button" onclick="registerDeviceToken()" value="registerDeviceToken"/><br>
+            <div id="txt_getui_bindalias">registerDeviceToken:</div>
+            <br>
+
+            <input type="button" onclick="fetchClientId()" value="fetchClientId"/><br>
+            <div id="txt_getui_bindalias">fetchClientId:</div>
+            <br>
+
+            <input type="button" onclick="isPushTurnedOn()" value="推送开关状态"/><br>
+            <div id="txt_getui_ispushturnedon">isPushTurnedOn:</div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
