@@ -252,19 +252,15 @@ iOS系统
 
 <div id="extended-content">
 
-<div class="outline">
+<div class="outline" style="font-size:18px">
 
-[setTag](#b1)
-
-[bindAlias](#b2)
-
-[unBindAlias](#b3)
-
-[stopService](#b4)
-
-[sendFeedbackMessage](#b5)
-
-[fetchClientId](#b6)
+	<div><a href="#b1"> setTag </a></div>
+	<div><a href="#b2"> bindAlias </a></div>
+	<div><a href="#b3"> unBindAlias </a></div>
+	<div><a href="#b4"> stopService </a></div>
+	<div><a href="#b5"> sendFeedbackMessage </a></div>
+	<div><a href="#b6"> fetchClientId </a></div>
+	
 </div>
 
 # setTag<div id="b1"></div>
@@ -622,22 +618,14 @@ iOS系统
 </div>
 <div id="advanced-content">
 
-<div class="outline">
-
-[turnOnPush](#c1)
-
-[turnOffPush](#c2)
-
-[isPushTurnedOn](#c3)
-
-[getVersion](#c4)
-
-[setSilentTime](#c5)
-
-[sendMessage](#c6)
-
-[payloadMessage](#c7)
-
+<div class="outline" style="font-size:18px">
+	<div><a href="#c1"> turnOnPush </a></div>
+	<div><a href="#c2"> turnOffPush </a></div>
+	<div><a href="#c3"> isPushTurnedOn </a></div>
+	<div><a href="#c4"> getVersion </a></div>
+	<div><a href="#c5"> setSilentTime </a></div>
+	<div><a href="#c6"> sendMessage </a></div>
+	<div><a href="#c7"> payloadMessage </a></div>
 </div>
 
 
