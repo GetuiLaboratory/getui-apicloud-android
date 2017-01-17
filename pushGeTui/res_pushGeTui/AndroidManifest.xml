@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+	<!-- 个推SDK配置开始 -->
+
+	<!-- 个推SDK权限配置 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+	<!-- 配置第三方Receiver -->
+	<receiver
+		android:name="com.getui.sdk.GetuiSDKReceiver"
+		android:exported="false" >
+		<intent-filter>
+			<action android:name="com.igexin.sdk.action.apicloud" />
+		</intent-filter>
+	</receiver>
+
+	<!-- 配置SDK核心服务 -->
+	<service
+		android:name="com.igexin.sdk.PushService"
+		android:process=":pushservice"
+		android:exported="true"
+		android:label="NotificationCenter" >
+		<intent-filter>
+            <action android:name="com.igexin.sdk.action.service.message"/>
+        </intent-filter>
+	</service>
+
+	<receiver android:name="com.igexin.sdk.PushReceiver" >
+		<intent-filter>
+			<action android:name="android.intent.action.BOOT_COMPLETED" />
+			<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+			<action android:name="android.intent.action.USER_PRESENT" />
+			<action android:name="com.igexin.sdk.action.refreshls" />
+			<!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+            <action android:name="android.intent.action.MEDIA_MOUNTED" />
+            <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+		</intent-filter>
+	</receiver>
+
+	<receiver
+		android:name="com.igexin.sdk.PushManagerReceiver"
+		android:exported="false" >
+		<intent-filter>
+			<action android:name="com.igexin.sdk.action.pushmanager" />
+		</intent-filter>
+	</receiver>
+
+	<activity
+		android:name="com.igexin.sdk.PushActivity"
+		android:process=":pushservice"
+		android:excludeFromRecents="true"
+		android:exported="false"
+		android:taskAffinity="com.igexin.sdk.PushActivityTask"
+		android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+	</activity>
+
+	<!-- 个推SDK配置结束 -->
+
+</manifest>

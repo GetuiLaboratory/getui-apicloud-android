@@ -67,7 +67,9 @@ public class GetuiSDK extends UZModule {
         if (groupid != null)
             groupid = groupid.trim();
 
-        PushManager.getInstance().initialize(mContext, appkey, appid, appsecret, groupid);
+        // 测试代码
+        PushManager.getInstance().initialize(mContext, null);
+//        PushManager.getInstance().initialize(mContext, appkey, appid, appsecret, groupid);
         isInitialized = true;
     }
 
