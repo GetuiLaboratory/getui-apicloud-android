@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 public class GetuiSDKReceiver extends BroadcastReceiver {
 
@@ -25,6 +26,7 @@ public class GetuiSDKReceiver extends BroadcastReceiver {
 
                 if (payload != null) {
                     String data = new String(payload);
+//                    Log.e("onReceive:  payload", " "+data);
 
                     JSONObject json = new JSONObject();
                     try {
@@ -46,6 +48,7 @@ public class GetuiSDKReceiver extends BroadcastReceiver {
                 // 获取ClientID(CID)
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
                 String cid = bundle.getString("clientid");
+//                Log.e("onReceive:  cid", " "+cid);
 
                 JSONObject json = new JSONObject();
                 try {

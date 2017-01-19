@@ -14,6 +14,6 @@
         <param name="android_appkey" value="9bNpVNvVrX63nA7AgiPeiA" />
         <param name="android_appid" value="WDRtfrJBuS8vdjf1UHmAS9" />
         <param name="android_appsecret" value="0ZiKIxPyCL6pOpTz3ygZH2" />
-        <param name="android_groupid" value="" />
+        <param name="android_groupid" value="12" />
     </feature>
 </widget>

@@ -113,6 +113,7 @@
 
 
         <!-- meta data 的测试  -->
+        <!--
         <meta-data
             android:name="PUSH_APPID"
             android:value="WDRtfrJBuS8vdjf1UHmAS9" />
@@ -122,6 +123,7 @@
         <meta-data
             android:name="PUSH_APPSECRET"
             android:value="0ZiKIxPyCL6pOpTz3ygZH2" />
+        -->
 
 
         <!-- 个推SDK配置开始 -->
@@ -131,7 +133,7 @@
             android:name="com.getui.sdk.GetuiSDKReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.WDRtfrJBuS8vdjf1UHmAS9" />
+                <action android:name="com.igexin.sdk.action.apicloud" />
             </intent-filter>
         </receiver>
 
@@ -174,7 +176,7 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <!-- 个推SDK配置结束 -->
     </application>

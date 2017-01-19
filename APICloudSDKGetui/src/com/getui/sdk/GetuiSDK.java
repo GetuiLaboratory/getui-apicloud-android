@@ -13,6 +13,7 @@ import com.uzmap.pkg.uzcore.uzmodule.UZModule;
 import com.uzmap.pkg.uzcore.uzmodule.UZModuleContext;
 
 import android.content.Intent;
+import android.util.Log;
 
 /**
  * @author zhoucheng
@@ -68,7 +69,7 @@ public class GetuiSDK extends UZModule {
             groupid = groupid.trim();
 
         // 测试代码
-        PushManager.getInstance().initialize(mContext, null);
+        PushManager.getInstance().initialize(mContext, null, appkey, appid, appsecret, groupid);
 //        PushManager.getInstance().initialize(mContext, appkey, appid, appsecret, groupid);
         isInitialized = true;
     }
@@ -87,6 +88,10 @@ public class GetuiSDK extends UZModule {
     public void jsmethod_payloadMessage(final UZModuleContext moduleContext) {
         Intent intent = getContext().getIntent();
         String param = intent.getStringExtra("appParam");
+
+        Log.e("payloadMessage   0118", "  " + param);
+
+
         JSONObject resultJson = new JSONObject();
         try {
             if (param != null) {
