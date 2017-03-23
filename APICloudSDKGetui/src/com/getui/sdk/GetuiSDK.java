@@ -13,7 +13,7 @@ import com.uzmap.pkg.uzcore.uzmodule.UZModule;
 import com.uzmap.pkg.uzcore.uzmodule.UZModuleContext;
 
 import android.content.Intent;
-import android.util.Log;
+
 
 /**
  * @author zhoucheng
@@ -40,11 +40,9 @@ public class GetuiSDK extends UZModule {
     }
 
     /**
-     * 初始化个推SDK <strong>函数</strong><br>
-     * <br>
-     * 该函数映射至Javascript中getuiSDK对象的initialize函数<br>
-     * <br>
-     * <strong>JS Example：</strong><br>
+     * 初始化个推SDK <strong>函数</strong>
+     * 该函数映射至Javascript中getuiSDK对象的initialize函数
+     * <strong>JS Example：</strong>
      * getuiSDK.initialize();
      *
      * @param moduleContext (Required)
@@ -53,33 +51,40 @@ public class GetuiSDK extends UZModule {
     public void jsmethod_initialize(final UZModuleContext moduleContext) {
         mCommonCallback = moduleContext;
         String moduleName = "pushGeTui";
+//        String moduleName = "pushGeTuiIOSTest";
 
         String appkey = getFeatureValue(moduleName, "android_appkey");
         String appid = getFeatureValue(moduleName, "android_appid");
         String appsecret = getFeatureValue(moduleName, "android_appsecret");
         String groupid = getFeatureValue(moduleName, "android_groupid");
 
-        if (appkey != null)
+        if (appkey != null) {
             appkey = appkey.trim();
-        if (appid != null)
+        }
+        if (appid != null) {
             appid = appid.trim();
-        if (appsecret != null)
+        }
+        if (appsecret != null) {
             appsecret = appsecret.trim();
-        if (groupid != null)
+        }
+        if (groupid != null) {
             groupid = groupid.trim();
+        }
 
         // 测试代码
-        PushManager.getInstance().initialize(mContext, null, appkey, appid, appsecret, groupid);
-//        PushManager.getInstance().initialize(mContext, appkey, appid, appsecret, groupid);
+        PushManager.getInstance().initialize(mContext, APICloudPushService.class, appkey, appid, appsecret, groupid);
+        PushManager.getInstance().registerPushIntentService(mContext, APICloudIntentService.class);
         isInitialized = true;
     }
 
+
+
     /**
-     * 重新启动应用获取透传消息 <strong>函数</strong><br>
-     * <br>
-     * 该函数映射至Javascript中getuiSDK对象的payloadMessage函数<br>
-     * <br>
-     * <strong>JS Example：</strong><br>
+     * 重新启动应用获取透传消息 <strong>函数</strong>
+     *
+     * 该函数映射至Javascript中getuiSDK对象的payloadMessage函数
+     *
+     * <strong>JS Example：</strong>
      * getuiSDK.payloadMessage();
      *
      * @param moduleContext (Required)
@@ -88,9 +93,6 @@ public class GetuiSDK extends UZModule {
     public void jsmethod_payloadMessage(final UZModuleContext moduleContext) {
         Intent intent = getContext().getIntent();
         String param = intent.getStringExtra("appParam");
-
-        Log.e("payloadMessage   0118", "  " + param);
-
 
         JSONObject resultJson = new JSONObject();
         try {
@@ -108,12 +110,14 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
-     * 开启个推推送 <strong>函数</strong><br>
-     * <br>
-     * 该函数映射至Javascript中getuiSDK对象的turnOnPush函数<br>
-     * <br>
-     * <strong>JS Example：</strong><br>
+     * 开启个推推送 <strong>函数</strong>
+     *
+     * 该函数映射至Javascript中getuiSDK对象的turnOnPush函数
+     *
+     * <strong>JS Example：</strong>
      * getuiSDK.turnOnPush();
      *
      * @param moduleContext (Required)
@@ -131,6 +135,8 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 关闭个推推送 <strong>函数</strong><br>
@@ -155,6 +161,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * 检查SDK当前服务状态 <strong>函数</strong><br>
      * <br>
@@ -178,6 +186,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * 获取SDK版本号getVersion <strong>函数</strong><br>
      * <br>
@@ -200,6 +210,8 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 设置用户标签setTag <strong>函数</strong><br>
@@ -237,6 +249,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * 设置静默时间setSilentTime <strong>函数</strong><br>
      * <br>
@@ -262,6 +276,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * @param moduleContext (Required)
      * @Title: setHeartbeatInterval
@@ -285,6 +301,8 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 发送上行数据sendMessage <strong>函数</strong><br>
@@ -315,6 +333,8 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 上行第三方自定义actionid <strong>函数</strong><br>
@@ -348,6 +368,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * 暂停SDK服务stopService <strong>函数</strong><br>
      * <br>
@@ -372,6 +394,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * 绑定cid别名接口 <strong>函数</strong><br>
      * <br>
@@ -395,6 +419,8 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 解绑cid别名接口 <strong>函数</strong><br>
@@ -424,6 +450,8 @@ public class GetuiSDK extends UZModule {
         }
     }
 
+
+
     /**
      * 注册设备 token <strong>函数</strong><br>
      * <br>
@@ -444,6 +472,8 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * 主动获取 clientId <strong>函数</strong><br>
@@ -467,5 +497,7 @@ public class GetuiSDK extends UZModule {
             e.printStackTrace();
         }
     }
+
+
 
 }

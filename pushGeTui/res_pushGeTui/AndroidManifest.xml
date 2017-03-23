@@ -47,14 +47,6 @@
 		</intent-filter>
 	</receiver>
 
-	<receiver
-		android:name="com.igexin.sdk.PushManagerReceiver"
-		android:exported="false" >
-		<intent-filter>
-			<action android:name="com.igexin.sdk.action.pushmanager" />
-		</intent-filter>
-	</receiver>
-
 	<activity
 		android:name="com.igexin.sdk.PushActivity"
 		android:process=":pushservice"

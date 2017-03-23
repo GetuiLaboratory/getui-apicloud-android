@@ -44,6 +44,7 @@ public class GetuiSDKReceiver extends BroadcastReceiver {
                     }
                 }
                 break;
+
             case PushConsts.GET_CLIENTID:
                 // 获取ClientID(CID)
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
@@ -65,23 +66,12 @@ public class GetuiSDKReceiver extends BroadcastReceiver {
                     e.printStackTrace();
                 }
                 break;
+
             case PushConsts.GET_SDKONLINESTATE:
-                // 获取SDK在线状态
-                boolean isOnline = bundle.getBoolean("onlineState");
-                // Log.d("GexinSdkDemo", "Got Sdk online state change :" + isOnline);
                 break;
             case PushConsts.GET_SDKSERVICEPID:
-                // 获取SDK service 进程id
-                int pid = bundle.getInt("pid");
-                // Log.d("GexinSdkDemo", "Got Sdk service pid :" + pid);
                 break;
             case PushConsts.THIRDPART_FEEDBACK:
-                String appid = bundle.getString("appid");
-                String taskid2 = bundle.getString("taskid");
-                String actionid = bundle.getString("actionid");
-                String result = bundle.getString("result");
-                long timestamp = bundle.getLong("timestamp");
-
                 break;
             default:
                 break;

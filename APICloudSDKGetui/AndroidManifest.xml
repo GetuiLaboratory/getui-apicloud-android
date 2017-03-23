@@ -106,11 +106,6 @@
             </intent-filter>
         </activity>
 
-        <!--  <activity
-                   android:name="com.apicloud.moduleDemo.DemoActivity"
-                   android:configChanges="orientation|locale"
-                   android:screenOrientation="portrait" />    -->
-
 
         <!-- meta data 的测试  -->
         <!--
@@ -126,9 +121,8 @@
         -->
 
 
-        <!-- 个推SDK配置开始 -->
-
         <!-- 配置第三方Receiver  测试时可换apicloud为APPID-->
+        <!--
         <receiver
             android:name="com.getui.sdk.GetuiSDKReceiver"
             android:exported="false">
@@ -136,6 +130,21 @@
                 <action android:name="com.igexin.sdk.action.apicloud" />
             </intent-filter>
         </receiver>
+        -->
+
+
+        <!-- 个推SDK配置开始 -->
+        <!-- 自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
+        <service android:name="com.getui.sdk.APICloudIntentService"/>
+
+        <!-- 自定义服务名 -->
+        <service
+            android:name="com.getui.sdk.APICloudPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
+
 
         <!-- 配置SDK核心服务 -->
         <service
@@ -161,24 +170,15 @@
             </intent-filter>
         </receiver>
 
-        <!--
-        <receiver
-            android:name="com.igexin.sdk.PushManagerReceiver"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.igexin.sdk.action.pushmanager" />
-            </intent-filter>
-        </receiver>
-        -->
-
         <activity
             android:name="com.igexin.sdk.PushActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-
         <!-- 个推SDK配置结束 -->
+
+
     </application>
 
 </manifest>
