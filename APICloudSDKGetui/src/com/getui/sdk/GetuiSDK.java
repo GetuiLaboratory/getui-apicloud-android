@@ -409,12 +409,12 @@ public class GetuiSDK extends UZModule {
     @UzJavascriptMethod
     public void jsmethod_bindAlias(final UZModuleContext moduleContext) {
         String alias = moduleContext.optString("alias");
-        PushManager.getInstance().bindAlias(mContext, alias);
-        int value = isInitialized ? 1 : 0;
+        boolean value = PushManager.getInstance().bindAlias(mContext, alias);
+        int result1 = value ? 1 : 0;
         try {
             JSONObject resultJson = new JSONObject();
-            resultJson.put("result", value);
-            moduleContext.success(resultJson, false);
+            resultJson.put("result", result1);
+            moduleContext.success(resultJson, false); // 回传给JS中的回调函数
         } catch (JSONException e) {
             e.printStackTrace();
         }

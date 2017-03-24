@@ -73,8 +73,9 @@ public class APICloudIntentService extends GTIntentService {
             json.put("type", "cid");
             json.put("cid", clientid);
 
-            if (GetuiSDK.getCommonCallback() != null)
+            if (GetuiSDK.getCommonCallback() != null) {
                 GetuiSDK.getCommonCallback().success(json, false);
+            }
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

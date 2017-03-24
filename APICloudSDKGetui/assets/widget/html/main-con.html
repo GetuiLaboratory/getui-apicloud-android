@@ -10,6 +10,7 @@
     <script type="text/javascript">
 
             var uzgetuisdk = null;
+
             apiready = function(){
                 uzgetuisdk = api.require('pushGeTui');
                 uzgetuisdk.payloadMessage(function(ret) {
@@ -18,22 +19,26 @@
             }
 
             function initialize() {
-                // 初始化sdk并监听透传消息
+                // 初始化sdk并设置回调函数callback
                 uzgetuisdk.initialize(callback);
             }
 
-            function callback(ret,err){
-              alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
+
+            // 回调函数, 封装在 jsmethod_initialize 中的 UZModuleContext 中
+            function callback(ret, err){
+              alert("20170324   ret = " + JSON.stringify(ret) + "  err = " + JSON.stringify(err));
+
                 var log;
                 switch(ret.type)
                 {
                     case 'cid':
                         log='cid:'+ret.cid;
-                        // 获取到cid后的回调通知
+                        // 获取到cid后的回调, 修改首页的UI, 显示CID的数值
                         document.getElementById("txt_getui_cid").innerHTML = "cid:" + ret.cid;
                         break;
                     case 'payload':
                         log='payload:'+ret.payload;
+                        // 获取透传后的回调, 修改首页的UI, 显示透传的内容
                         document.getElementById("txt_getui_taskid").innerHTML = "taskid:" + ret.taskId;
                         document.getElementById("txt_getui_messageid").innerHTML = "messageid:" + ret.messageId;
                         document.getElementById("txt_getui_payload").innerHTML = "payload:" + ret.payload;
@@ -47,6 +52,8 @@
                 }
             }
 
+
+
             function stopService() {
                 uzgetuisdk.stopService(function(ret) {
                     // TODO:
@@ -54,11 +61,14 @@
                 document.getElementById("txt_getui_cid").innerHTML = "cid:";
             }
 
+
+            // 获取版本号
             function getVersion() {
                 uzgetuisdk.getVersion(function(ret) {
                     document.getElementById("txt_getui_version").innerHTML = "version:" + ret.version;
                 });
             }
+
 
             function setTag() {
                 var param = {tags:"tag1,tag2"};
@@ -67,12 +77,15 @@
                 });
             }
 
+
             function bindAlias() {
                var param = {alias:"myalias"};
-               uzgetuisdk.bindAlias(param, function(ret, err) {
-                   alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err))
+               uzgetuisdk.bindAlias(param, function(response, err) {
+                   alert("2017 response = " + JSON.stringify(response) + "  err = " + JSON.stringify(err));
                });
+
             }
+
 
             function unbindAlias() {
               var param = {alias:"myalias"};
@@ -81,6 +94,7 @@
               });
             }
 
+
             function setSilentTime() {
                 var param = {beginHour:9,duration:12};
                 uzgetuisdk.setSilentTime(param,function(ret) {
@@ -88,11 +102,13 @@
                 });
             }
 
+
             function isPushTurnedOn() {
                 uzgetuisdk.isPushTurnedOn(function(ret) {
                     document.getElementById("txt_getui_ispushturnedon").innerHTML = "isPushTurnedOn: "+ret.isOn;
                 });
             }
+
 
             function sendFeedbackMessage() {
               var param = {
@@ -104,18 +120,21 @@
                   alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
               });
             }
+
             
             function registerDeviceToken(){
               uzgetuisdk.registerDeviceToken(function(ret, err){
                 alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
               });
             }
+
             
             function fetchClientId(){
-              uzgetuisdk.fetchClientId(function(ret, err){
-                alert("ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err));
+              uzgetuisdk.fetchClientId(function(response, err){
+                alert("response = " + JSON.stringify(response) + "  err = " + JSON.stringify(err));
               });
             }
+
 
             function sendMessage(argument) {
               var param = {
@@ -125,9 +144,10 @@
               uzgetuisdk.sendMessage(param);
             }
 
-
     </script>
 </head>
+
+
 <body>
 <div id="wrap">
     <div id="main">
@@ -152,23 +172,23 @@
             <br>
 
             <input type="button" onclick="unbindAlias()" value="解绑别名"/><br>
-            <div id="txt_getui_bindalias">unbindAlias:</div>
+            <div id="txt_getui_unbindalias">unbindAlias:</div>
             <br>
 
             <input type="button" onclick="sendFeedbackMessage()" value="sendFeedbackMessage"/><br>
-            <div id="txt_getui_bindalias">sendFeedbackMessage:</div>
+            <div id="txt_getui_sendFeedbackMessage">sendFeedbackMessage:</div>
             <br>
 
             <input type="button" onclick="sendMessage()" value="sendMessage"/><br>
-            <div id="txt_getui_bindalias">sendMessage:</div>
+            <div id="txt_getui_sendMessage">sendMessage:</div>
             <br>
 
             <input type="button" onclick="registerDeviceToken()" value="registerDeviceToken"/><br>
-            <div id="txt_getui_bindalias">registerDeviceToken:</div>
+            <div id="txt_getui_registerDeviceToken">registerDeviceToken:</div>
             <br>
 
             <input type="button" onclick="fetchClientId()" value="fetchClientId"/><br>
-            <div id="txt_getui_bindalias">fetchClientId:</div>
+            <div id="txt_getui_fetchClientId">fetchClientId:</div>
             <br>
 
             <input type="button" onclick="isPushTurnedOn()" value="推送开关状态"/><br>
@@ -178,4 +198,6 @@
     </div>
 </div>
 </body>
+
+
 </html>
