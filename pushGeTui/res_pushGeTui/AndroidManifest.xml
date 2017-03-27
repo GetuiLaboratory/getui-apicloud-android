@@ -14,14 +14,19 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-	<!-- 配置第三方Receiver -->
-	<receiver
-		android:name="com.getui.sdk.GetuiSDKReceiver"
-		android:exported="false" >
-		<intent-filter>
-			<action android:name="com.igexin.sdk.action.apicloud" />
-		</intent-filter>
-	</receiver>
+	
+
+	<!-- 自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
+	<service android:name="com.getui.sdk.APICloudIntentService"/>
+
+	<!-- 自定义服务名 -->
+	<service
+		android:name="com.getui.sdk.APICloudPushService"
+        android:exported="true"
+        android:label="PushService"
+        android:process=":pushservice">
+	</service>
+
 
 	<!-- 配置SDK核心服务 -->
 	<service

@@ -1,16 +1,11 @@
 package com.getui.sdk;
 
 import android.content.Context;
-import android.os.Message;
 import android.util.Log;
 
 import com.igexin.sdk.GTIntentService;
-import com.igexin.sdk.PushConsts;
-import com.igexin.sdk.PushManager;
-import com.igexin.sdk.message.FeedbackCmdMessage;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
-import com.igexin.sdk.message.SetTagCmdMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;

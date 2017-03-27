@@ -80,68 +80,87 @@ dependencies {
 
 
 
+
+
+
+// 以下为 APICloud 插件压缩包的自动打包模块
+
 ext {
     jarName = "APICloudGetui"
     jarPath = "com/getui/sdk"
-    modulePath = "$buildDir/$ApicloudModuleName"
-    moduleResPath = "$modulePath/res_$ApicloudModuleName"
+    modulePath = "$buildDir/pushGeTui"
+    moduleResPath = "$modulePath/res_pushGeTui"
     moduleSourcePath = "$modulePath/source"
     moduleTatgetPath = "$modulePath/target"
     moduleJsonPath = "$modulePath/module.json"
-    sdkPath = 'libs/GetuiSDK2.9.5.0.apicloud.jar'
+    sdkPath = 'libs/GetuiSDK2.10.2.0.apicloud.jar'
     generatPath = "$buildDir/generated/getui"
 }
 
-//归档模块相关的 class文件, 生成Jar包
-task releaseJar(type: Jar) {
-    baseName jarName
-    def fromDir = "${getProject().buildDir}/intermediates/classes/release/"
-    println "jar from $fromDir"
-    from fromDir
 
-    exclude { //排除一部分class文件
+
+
+// 归档模块相关的 class文件, 生成用于APICloud插件的Jar包
+task releaseJar(type: Jar) {
+    baseName "APICloudGetui"
+    def sourceDir = "${getProject().buildDir}/intermediates/classes/release/"
+    // 控制台打印提示信息
+    println "Now Generate the Jar from $sourceDir"
+    from sourceDir
+
+    // 排除一部分class文件
+    exclude {
         it.path.startsWith('com/getui/apiclouddemo')
     }
 }
 
+
+// 清空旧版本的插件包
 task cleanApicloud(type: Delete) {
     delete modulePath
 }
 
-//打包apicloud模块文件夹为zip文件
+
+// 打包apicloud模块文件夹为zip文件
 task releaseApicloud(type: Zip) {
     entryCompression = ZipEntryCompression.STORED
     destinationDir = buildDir
-    Calendar now = Calendar.getInstance()
-//    archiveName = "$ApicloudModuleName-$PushGetuiVersion-${now.get(Calendar.YEAR)}${now.get(Calendar.MONTH)}${now.get(Calendar.DAY_OF_MONTH)}.zip"
-    archiveName = "${ApicloudModuleName}.zip"
+//    Calendar now = Calendar.getInstance()
+//    archiveName = "pushGeTui-$PushGetuiVersion-${now.get(Calendar.YEAR)}${now.get(Calendar.MONTH)}${now.get(Calendar.DAY_OF_MONTH)}.zip"   对zip文件的命名加上日期
+    archiveName = "pushGeTui.zip"
     from modulePath
 }
 
-//通过命令打包模块
+
+// 通过命令行指令, 压缩文件夹
 task zipApicloud(type: Exec) {
     workingDir 'build'
-    commandLine 'zip', '-r', "${ApicloudModuleName}.zip", "${ApicloudModuleName}/"
+    commandLine 'zip', '-r', "pushGeTui.zip", "pushGeTui/"  // 命令行的zip指令
 }
 
-//创建文件目录和配置文件
+
+
+
+
+// 创建文件目录和配置文件
 task generateApicloudFiles {
-    mkdir modulePath  //创建模块存放目录
-    //定义 module.json文件内容
+    mkdir modulePath  // 创建模块存放目录
+    // 定义 module.json文件内容
     def jsonModuleStr = """{
-  name: '$ApicloudModuleName',
+  name: 'pushGeTui',
   class: 'com.getui.sdk.GetuiSDK'
 }
 """
-    file(moduleJsonPath).write(jsonModuleStr)  //写入文件
+    file(moduleJsonPath).write(jsonModuleStr)  // 写入文件
 }
 
-//创建一个类来保存编译信息
+
+// 创建一个类来保存编译信息
 task generateBuildconfig {
     def buildConfig =
             """package com.getui.sdk;
 public final class BuildConfig {
-  public static final String ModuleName = "$ApicloudModuleName";
+  public static final String ModuleName = "pushGeTui";
 }
 """
     def configPath = "$generatPath/com/getui/sdk"
@@ -149,40 +168,54 @@ public final class BuildConfig {
     file("$configPath/BuildConfig.java").write(buildConfig)
 }
 
-//复制AndroidManifest.xml
+
+
+
+
+// 复制AndroidManifest.xml, 从旧版本中原封不动的复制, 需要先进行手动修改
 task copyManifest(type: Copy) {
     from '../pushGetui/res_pushGetui/AndroidManifest.xml'
 //    from 'AndroidManifest.xml'
-    into moduleResPath
+    into "$modulePath/res_pushGeTui"
 }
 
-//复制res文件
+
+// 复制res文件, 从 res/layout/ 目录中原样拷贝
 task copyRes(type: Copy) {
     from 'res/layout/getui_notification.xml'
-    into "$moduleResPath/res/layout/"
+    into "$modulePath/res_pushGeTui/res/layout/"
 }
 
-//复制 source文件
+
+// 复制 APICloud 个推插件中间层的Java文件生成的jar包, 以及 GetuiSDK2.10.2.0.apicloud jar包
 task copySource(type: Copy) {
     from "$buildDir/libs/"
     from sdkPath
     into moduleSourcePath
 }
 
-//复制 target文件
+
+// 复制so文件到 target 文件夹中
 task copyTarget(type: Copy) {
     from 'libs/armeabi/libgetuiext2.so'
     into moduleTatgetPath
 }
 
-//最终生成 apicloud格式的安卓模块
+
+
+// 最终生成 APICloud的安卓插件压缩包
 task apicloudRelease {}
 
 
+
+
+// 配置各个函数之间的依赖关系
 releaseJar.dependsOn build
 copyRes.dependsOn generateApicloudFiles
 copySource.dependsOn releaseJar
 releaseApicloud.dependsOn copyRes, copySource, copyManifest, copyTarget
 zipApicloud.dependsOn copyRes, copySource, copyManifest, copyTarget
 apicloudRelease.dependsOn releaseApicloud
+
+
 

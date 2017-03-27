@@ -146,6 +146,7 @@
         </service>
 
 
+
         <!-- 配置SDK核心服务 -->
         <service
             android:name="com.igexin.sdk.PushService"
