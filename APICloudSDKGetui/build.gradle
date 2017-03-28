@@ -115,21 +115,22 @@ task releaseJar(type: Jar) {
 }
 
 
+
 // 清空旧版本的插件包
 task cleanApicloud(type: Delete) {
     delete modulePath
 }
 
 
+
 // 打包apicloud模块文件夹为zip文件
 task releaseApicloud(type: Zip) {
     entryCompression = ZipEntryCompression.STORED
     destinationDir = buildDir
-//    Calendar now = Calendar.getInstance()
-//    archiveName = "pushGeTui-$PushGetuiVersion-${now.get(Calendar.YEAR)}${now.get(Calendar.MONTH)}${now.get(Calendar.DAY_OF_MONTH)}.zip"   对zip文件的命名加上日期
     archiveName = "pushGeTui.zip"
-    from modulePath
+    from "$buildDir/pushGeTui"
 }
+
 
 
 // 通过命令行指令, 压缩文件夹
@@ -141,10 +142,10 @@ task zipApicloud(type: Exec) {
 
 
 
-
-// 创建文件目录和配置文件
+// 创建文件目录和写入配置文件
 task generateApicloudFiles {
-    mkdir modulePath  // 创建模块存放目录
+    // 创建模块存放目录
+    mkdir "$buildDir/pushGeTui"
     // 定义 module.json文件内容
     def jsonModuleStr = """{
   name: 'pushGeTui',
@@ -155,14 +156,16 @@ task generateApicloudFiles {
 }
 
 
+
+// 暂未使用
 // 创建一个类来保存编译信息
 task generateBuildconfig {
     def buildConfig =
             """package com.getui.sdk;
-public final class BuildConfig {
-  public static final String ModuleName = "pushGeTui";
-}
-"""
+                public final class BuildConfig {
+                public static final String ModuleName = "pushGeTui";
+            }
+            """
     def configPath = "$generatPath/com/getui/sdk"
     mkdir configPath
     file("$configPath/BuildConfig.java").write(buildConfig)
@@ -171,16 +174,14 @@ public final class BuildConfig {
 
 
 
-
 // 复制AndroidManifest.xml, 从旧版本中原封不动的复制, 需要先进行手动修改
 task copyManifest(type: Copy) {
     from '../pushGetui/res_pushGetui/AndroidManifest.xml'
-//    from 'AndroidManifest.xml'
     into "$modulePath/res_pushGeTui"
 }
 
 
-// 复制res文件, 从 res/layout/ 目录中原样拷贝
+// 复制res文件, 从本工程的 res/layout/ 目录中原样拷贝
 task copyRes(type: Copy) {
     from 'res/layout/getui_notification.xml'
     into "$modulePath/res_pushGeTui/res/layout/"
@@ -189,8 +190,8 @@ task copyRes(type: Copy) {
 
 // 复制 APICloud 个推插件中间层的Java文件生成的jar包, 以及 GetuiSDK2.10.2.0.apicloud jar包
 task copySource(type: Copy) {
-    from "$buildDir/libs/"
-    from sdkPath
+    from 'build/libs/'
+    from 'libs/GetuiSDK2.10.2.0.apicloud.jar'
     into moduleSourcePath
 }
 
@@ -200,6 +201,8 @@ task copyTarget(type: Copy) {
     from 'libs/armeabi/libgetuiext2.so'
     into moduleTatgetPath
 }
+
+
 
 
 
