@@ -64,10 +64,13 @@
 
             // 获取版本号
             function getVersion() {
-                uzgetuisdk.getVersion(function(ret) {
-                    document.getElementById("txt_getui_version").innerHTML = "version:" + ret.version;
-                });
+                uzgetuisdk.getVersion(callbackVersion);
+
+                function callbackVersion(response, err) {
+                    document.getElementById("txt_getui_version").innerHTML = "20170329  version:  " + response.version;
+                }
             }
+
 
 
             function setTag() {
@@ -130,10 +133,13 @@
 
             
             function fetchClientId(){
-              uzgetuisdk.fetchClientId(function(response, err){
-                alert("response = " + JSON.stringify(response) + "  err = " + JSON.stringify(err));
-              });
+              uzgetuisdk.fetchClientId(callbackCid);
             }
+
+            function callbackCid(response, err){
+              alert("20170329  response = " + JSON.stringify(response) + "  err = " + JSON.stringify(err));
+            }
+
 
 
             function sendMessage(argument) {
