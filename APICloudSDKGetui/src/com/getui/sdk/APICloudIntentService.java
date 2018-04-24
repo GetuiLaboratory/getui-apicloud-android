@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
+import com.igexin.sdk.message.GTNotificationMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
 
 import org.json.JSONException;
@@ -84,7 +85,55 @@ public class APICloudIntentService extends GTIntentService {
     }
 
     @Override
-    public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) { }
+    public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) {
+        Log.d(TAG, "onReceiveCommandResult -> " + cmdMessage);
+    }
 
+    /**
+     * 新增通知到达，点击回调
+     * */
 
+    @Override
+    public void onNotificationMessageClicked(Context context, GTNotificationMessage message) {
+        Log.d(TAG, "onNotificationMessageClicked -> " + "appid = " + message.getAppid() + "\ntaskid = " + message.getTaskId() + "\nmessageid = "
+                + message.getMessageId() + "\npkg = " + message.getPkgName() + "\ncid = " + message.getClientId() + "\ntitle = "
+                + message.getTitle() + "\ncontent = " + message.getContent());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type","onNotificationMessageClicked");
+            jsonObject.put("taskid",message.getTaskId());
+            jsonObject.put("messageid",message.getMessageId());
+            jsonObject.put("title",message.getTitle());
+            jsonObject.put("content",message.getContent());
+
+           if (GetuiSDK.getCommonCallback() != null) {
+               GetuiSDK.getCommonCallback().success(jsonObject, false);
+           }
+        }catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onNotificationMessageArrived(Context context, GTNotificationMessage message) {
+        Log.d(TAG, "onNotificationMessageArrived -> " + "appid = " + message.getAppid() + "\ntaskid = " + message.getTaskId() + "\nmessageid = "
+                + message.getMessageId() + "\npkg = " + message.getPkgName() + "\ncid = " + message.getClientId() + "\ntitle = "
+                + message.getTitle() + "\ncontent = " + message.getContent());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("type","onNotificationMessageArrived");
+            jsonObject.put("taskid",message.getTaskId());
+            jsonObject.put("messageid",message.getMessageId());
+            jsonObject.put("title",message.getTitle());
+            jsonObject.put("content",message.getContent());
+
+            if (GetuiSDK.getCommonCallback() != null) {
+                GetuiSDK.getCommonCallback().success(jsonObject, false);
+            }
+        }catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

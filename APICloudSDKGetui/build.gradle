@@ -69,11 +69,23 @@ android {
     }
 
 }
+/**
+ * wanghaobo modify
+ */
 
+buildscript {
+    repositories {
+        mavenCentral() // or jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/GetuiSDK2.10.2.0.apicloud.jar')
+    compile files('libs/GetuiSDK4.3.0.3.jar')
 }
 
 
@@ -93,7 +105,7 @@ ext {
     moduleSourcePath = "$modulePath/source"
     moduleTatgetPath = "$modulePath/target"
     moduleJsonPath = "$modulePath/module.json"
-    sdkPath = 'libs/GetuiSDK2.10.2.0.apicloud.jar'
+    sdkPath = 'libs/GetuiSDK4.3.0.3.jar'
     generatPath = "$buildDir/generated/getui"
 }
 
@@ -191,7 +203,7 @@ task copyRes(type: Copy) {
 // 复制 APICloud 个推插件中间层的Java文件生成的jar包, 以及 GetuiSDK2.10.2.0.apicloud jar包
 task copySource(type: Copy) {
     from 'build/libs/'
-    from 'libs/GetuiSDK2.10.2.0.apicloud.jar'
+    from 'libs/GetuiSDK4.3.0.3.jar'
     into moduleSourcePath
 }
 

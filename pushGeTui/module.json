@@ -1,0 +1,4 @@
+{
+  name: 'pushGeTui',
+  class: 'com.getui.sdk.GetuiSDK'
+}
