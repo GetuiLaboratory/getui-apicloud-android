@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.getui.apiclouddemo"
         minSdkVersion 8
-        targetSdkVersion 19
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -85,7 +85,7 @@ buildscript {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/GetuiSDK4.3.0.3.jar')
+    compile files('libs/GetuiSDK4.3.5.10.jar')
 }
 
 
@@ -105,7 +105,7 @@ ext {
     moduleSourcePath = "$modulePath/source"
     moduleTatgetPath = "$modulePath/target"
     moduleJsonPath = "$modulePath/module.json"
-    sdkPath = 'libs/GetuiSDK4.3.0.3.jar'
+    sdkPath = 'libs/GetuiSDK4.3.5.10.jar'
     generatPath = "$buildDir/generated/getui"
 }
 
@@ -203,14 +203,14 @@ task copyRes(type: Copy) {
 // 复制 APICloud 个推插件中间层的Java文件生成的jar包, 以及 GetuiSDK2.10.2.0.apicloud jar包
 task copySource(type: Copy) {
     from 'build/libs/'
-    from 'libs/GetuiSDK4.3.0.3.jar'
+    from 'libs/GetuiSDK4.3.5.10.jar'
     into moduleSourcePath
 }
 
 
 // 复制so文件到 target 文件夹中
 task copyTarget(type: Copy) {
-    from 'libs/armeabi/libgetuiext2.so'
+    from 'libs/armeabi/libgetuiext3.so'
     into moduleTatgetPath
 }
 
