@@ -1,0 +1,33 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION.toInteger()
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    defaultConfig {
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION
+        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    compileOnly files('../app/libs/apiEngine v3.0.0.jar')
+
+    implementation 'com.getui:gtsdk:3.2.10.0'
+    implementation 'com.getui:gtc:3.1.9.0' //latest.release
+}

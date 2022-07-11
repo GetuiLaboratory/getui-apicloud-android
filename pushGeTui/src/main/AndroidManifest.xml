@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.getui.sdk">
+
+    <application>
+        <meta-data
+            android:name="GETUI_APPID"
+            android:value="${GETUI_APPID}" />
+
+        <!-- 作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
+
+        <service android:name="com.getui.sdk.APICloudIntentService" />
+
+        <service
+            android:name="com.getui.sdk.APICloudPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+    </application>
+
+    <!-- 适配android 11及以上，强烈建议加上 -->
+    <queries>
+        <intent>
+            <action android:name="com.getui.sdk.action" />
+        </intent>
+    </queries>
+
+</manifest>

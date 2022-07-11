@@ -36,21 +36,28 @@ APPKEY/APPID：从个推平台上的获得的应用标识
 
 ## 个推消息推送基本流程说明
 
-1. 在[个推开放平台](http://dev.getui.com)注册帐号，并创建应用，获取 `APPKEY/APPID/APPSECRET` 参数。具体流程常见[个推开放API配置指南](./个推开放API配置指南.md)
+1. 在[个推开放平台](http://dev.getui.com)注册帐号，并创建应用，获取 `APPID` 参数。具体流程常见[个推开放API配置指南](./个推开放API配置指南.md)
 
-2. 在 config 中配置 pushGeTui feature，填写上述应用参数
+2. 在 `build.gradle` 中替换您APP应用参数
+```groovy
+defaultConfig {
+        manifestPlaceholders = [
+                GETUI_APPID: '替换您在个推平台注册的APPID',
+        ]
+}
+```
 
-3. 应用启动后调用 initialize 进行推送 SDK 初始化，并调用 register接口注册透传消息监听器；
+4. 应用启动后调用 initialize 进行推送 SDK 初始化，并调用 register接口注册透传消息监听器；
 
-4. 推送服务获取到推送标识CID后返回给JS层，应用一般需要将该CID和用户ID做一个绑定，记录到服务端；
+5. 推送服务获取到推送标识CID后返回给JS层，应用一般需要将该CID和用户ID做一个绑定，记录到服务端；
 
-5. 服务端指定CID进行透传消息推送（可以通过个推开放平台直接操作，也可以使用服务端 SDK 调用消息推送接口），携带透传消息内容 Payload
+6. 服务端指定CID进行透传消息推送（可以通过个推开放平台直接操作，也可以使用服务端 SDK 调用消息推送接口），携带透传消息内容 Payload
 
-6. 推送服务接收到消息后，通过 register 接口注册的消息监听器回调给JS层
+7. 推送服务接收到消息后，通过 register 接口注册的消息监听器回调给JS层
 
-7. JS 层处理透传消息内容 Payload ，进行相应的处理。
+8. JS 层处理透传消息内容 Payload ，进行相应的处理。
 
-8. 服务端也可以指定 CID 进行通知消息推送，通知点击后启动 APICloud 应用。
+9. 服务端也可以指定 CID 进行通知消息推送，通知点击后启动 APICloud 应用。
 
 ## 关于透传消息
 受到 JS 层目前机制限制，如果 apicloud 应用未运行， JS 层是无法处理透传数据的。
@@ -92,17 +99,17 @@ function callback(ret,err){
       switch(ret.type)
       {
           case 'cid':
-          log='cid:'+ret.cid;
-          break;
+                log='cid:'+ret.cid;
+                break;
           case 'payload':
-          log='payload:'+ret.payload;
-          break;
+                log='payload:'+ret.payload;
+                break;
           case'occurError':
-          log='occurError';
-          break;
+                log='occurError';
+                break;
           case 'sendMsgFeedback':
-          log='sendMsgFeedback:'+ret.result+' messageid:'+ret.messageId;
-          break;
+                log='sendMsgFeedback:'+ret.result+' messageid:'+ret.messageId;
+                break;
       }
     }
 ```
@@ -444,12 +451,12 @@ uzgetuisdk.unBindAlias(param,function(ret) {
 
 ## 可用性
 
-iOS系统，Android系统
+iOS系统，Android系统（v3.0.0中已经废弃，不推荐使用）
 
 可提供的1.0.0及更高版本
 
 
-#**stopService**<div id="b4"></div>
+# ~~**stopService**~~<div id="b4"></div>
 
 完全停止SDK的服务。停止推送服务，停止所有业务逻辑
 

@@ -1,0 +1,12 @@
+{
+	"modules":[
+		{
+			"name": "moduleDemo2",
+			"class": "com.getui.moduledemo2.Demo2"
+		},
+		{
+			"name": "pushGeTui",
+			"class": "com.getui.sdk.GetuiSDK"
+		}
+	]
+}

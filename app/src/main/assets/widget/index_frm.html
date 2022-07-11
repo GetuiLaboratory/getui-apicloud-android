@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>WinA</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/box.css"/>
+    <script type="text/javascript" src="script/public.js"></script>
+    <style>
+    	p{
+    		color:#00A0E9;
+    		padding:5px;
+    	}
+
+    </style>
+    <script type="text/javascript">
+
+		var getui = null;
+		apiready = function() {
+	    	getui = api.require('pushGeTui');
+	    }
+	    
+		function showToast() {
+			var param = {msg:"Hello pushGeTui!"};
+			getui.showToast(param)
+		}
+
+		function initialize() {
+            getui.initialize(callback);
+		}
+
+		function callback(ret, err){
+            alert("ret = " + JSON.stringify(ret) + "  err = " + JSON.stringify(err));
+
+            var log;
+            switch(ret.type)
+            {
+                case 'cid':
+                    log='cid:'+ret.cid;
+                    // 获取到cid后的回调, 修改首页的UI, 显示CID的数值
+                    document.getElementById("txt_getui_cid").innerHTML = "初始化SDK（cid：" + ret.cid + "）";
+                    break;
+                case 'payload':
+                    log='payload:'+ret.payload;
+                    // 获取透传后的回调, 修改首页的UI, 显示透传的内容
+                    document.getElementById("txt_getui_taskid").innerHTML = "taskid:" + ret.taskId;
+                    document.getElementById("txt_getui_messageid").innerHTML = "messageid:" + ret.messageId;
+                    document.getElementById("txt_getui_payload").innerHTML = "payload:" + ret.payload;
+                    break;
+                case 'occurError':
+                    log='occurError';
+                    break;
+                case 'sendMsgFeedback':
+                    log='sendMsgFeedback:'+ret.result+' messageid:'+ret.messageId;
+                    break;
+            }
+        }
+
+        function getVersion() {
+            getui.getVersion(function(response, err) {
+                document.getElementById("txt_getui_version").innerHTML = "获取版本号： " + response.version;
+            });
+        }
+
+        function sendMessage() {
+            var param = {
+            taskid:"SX_1111_ABCDEFG",
+                extraData:"any_command"
+            }
+            getui.sendMessage(param, function(ret, err) {
+              document.getElementById("txt_send_feedback_message_ret").innerHTML = "发送上行数据：ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err)
+          });
+        }
+
+        function sendFeedbackMessage() {
+          var param = {
+            taskid:"GT_1012_AKMw2kc2Oj5Tzy1DvXjMQA",
+            messageid:"GT_1012_AKMw2kc2Oj5Tzy1DvXjMQA",
+            actionid:90001
+          }
+          getui.sendFeedbackMessage(param, function(ret, err) {
+              document.getElementById("txt_send_feedback_message_ret").innerHTML = "上行第三方自定义回执：ret = " + JSON.stringify(ret) + "err = " + JSON.stringify(err)
+          });
+        }
+
+        function fetchClientId() {
+            getui.fetchClientId(function(response, err) {
+                document.getElementById("txt_getui_cid").innerHTML = "初始化SDK（cid：" + ret.cid + "）";
+            });
+        }
+
+        function turnOnPush() {
+            getui.turnOnPush(function(response, err) {
+                isPushTurnedOn();
+            });
+        }
+
+        function turnOffPush() {
+            getui.turnOffPush(function(response, err) {
+                isPushTurnedOn();
+            });
+        }
+
+        function isPushTurnedOn() {
+            getui.isPushTurnedOn(function(response, err) {
+                document.getElementById("txt_getui_push_state").innerHTML = "推送开关："+response.isOn;
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+
+        <div class="clickbtn" onclick="showToast()">测试toast</div>
+
+        <div class="itemtitle" id="txt_getui_cid">初始化SDK（cid：）</div>
+        <div class="clickbtn" onclick="initialize()">initialize</div>
+        <div class="clickbtn" onclick="fetchClientId()">fetchClientId</div>
+
+        <div class="itemtitle">接收透传数据：</div>
+        <div class="itemtext" id="txt_getui_taskid">taskid:</div>
+        <div class="itemtext" id="txt_getui_messageid">messageid:</div>
+        <div class="itemtext" id="txt_getui_payload">payload:</div>
+
+        <div class="itemtitle" id="txt_getui_version">获取版本号：</div>
+        <div class="clickbtn" onclick="getVersion()">getVersion</div>
+
+        <div class="itemtitle" id="txt_send_message_ret">发送上行数据：</div>
+        <div class="clickbtn" onclick="sendMessage()">seedMessage</div>
+
+        <div class="itemtitle" id="txt_send_feedback_message_ret">上行第三方自定义回执：</div>
+        <div class="clickbtn" onclick="sendFeedbackMessage()">sendFeedbackMessage</div>
+
+        <div class="itemtitle" id="txt_getui_push_state">推送开关：</div>
+        <div class="clickbtn" onclick="turnOnPush()">turnOnPush</div>
+        <div class="clickbtn" onclick="turnOffPush()">turnOffPush</div>
+
+    </div>
+</div>
+</body>
+</html>
