@@ -69,18 +69,13 @@ APPKEY/APPID：从个推平台上的获得的应用标识
 	  <param name="ios_appkey" value="xCGkZR1bCp6gscLUB20Dl4" />
 		<param name="ios_appid" value="G5lfFkQZ008VoZUXydA2r2" />
 		<param name="ios_appsecret" value="RuxlC8ExWA7T4NFoJhQFd6" />
-		<param name="android_appkey" value="aiMe49ehZa7IK8sevOTiY8" />
-		<param name="android_appid" value="h5AH1rK4KW7vfFGZjT7fG" />
-		<param name="android_appsecret" value="wx7779c7c063a9d4d9" />
-		<param name="android_groupid" value="" />
 	</feature>
 ```
 字段描述:
 
-		1.android_appkey：通过个推平台获得
-		2.android_appid：应用ID，通过个推平台获得
-		3.android_appsecret：通过个推平台获得
-		4.android_groupid: 目前留空即可
+		1.appkey：通过个推平台获得
+		2.appid：应用ID，通过个推平台获得
+		3.appsecret：通过个推平台获得
 		
 ## 接口设计说明 <br/>
 cid、payload、occurError，sendMessage都使用通过initialize传递进去的callback，所有的回调里面都定义了一个type参数，我们可以通过判断type参数来判断回调的类型.
