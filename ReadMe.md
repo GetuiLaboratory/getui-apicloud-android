@@ -38,13 +38,9 @@ APPKEY/APPID：从个推平台上的获得的应用标识
 
 1. 在[个推开放平台](http://dev.getui.com)注册帐号，并创建应用，获取 `APPID` 参数。具体流程常见[个推开放API配置指南](./个推开放API配置指南.md)
 
-2. 在 `build.gradle` 中替换您APP应用参数
-```groovy
-defaultConfig {
-        manifestPlaceholders = [
-                GETUI_APPID: '替换您在个推平台注册的APPID',
-        ]
-}
+2. 在 `APICloud Studio` 中替换您APP应用参数
+```xml
+<meta-data name="GETUI_APPID" value="替换您在个推https://www.getui.com/注册的APPID"/>
 ```
 
 4. 应用启动后调用 initialize 进行推送 SDK 初始化，并调用 register接口注册透传消息监听器；

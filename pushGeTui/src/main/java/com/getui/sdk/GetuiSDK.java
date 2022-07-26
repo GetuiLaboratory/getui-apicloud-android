@@ -58,7 +58,7 @@ public class GetuiSDK extends UZModule {
 
         Context applicationContext = context().getApplicationContext();
         PushManager.getInstance().initialize(applicationContext);
-//        PushManager.getInstance().setDebugLogger(applicationContext, s -> Log.i("PUSH_LOG", s));
+        PushManager.getInstance().setDebugLogger(applicationContext, s -> Log.i("PUSH_LOG", s));
         isInitialized = true;
     }
 

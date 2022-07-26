@@ -1,0 +1,56 @@
+// 过滤删除 com.getui:gtsdk:3.2.10.0
+// <meta-data android:name="GETUI_APPID" android:value="${GETUI_APPID}" />
+
+def removeManifestTag(String path, String tagName, String tagNameValue) {
+    def file = new File(path, "AndroidManifest.xml")
+    println "removeManifestTag ===> " + file.getAbsolutePath()
+    if (!file.exists()) {
+        logger.log(LogLevel.ERROR, file.getAbsolutePath() + ", 不存在")
+        return
+    }
+
+    def parser = new XmlParser()
+    def root = parser.parse(file)
+    def nodeList = root.depthFirst()
+    boolean removeFlag = false
+    for (item in nodeList) {
+        Node node = (Node) item
+        if (node.name() == tagName) {
+            println ""
+            Map map = node.attributes()
+            if (map.containsValue(tagNameValue)) {
+                //remove this node
+                removeFlag = true
+                node.parent().remove(node)
+                println "removeManifestTag ===> 剔除 ${tagName} 标签 ：$tagNameValue"
+                break
+            }
+        }
+    }
+    println "removeManifestTag ===> $removeFlag"
+    if (!removeFlag) {
+        logger.log(LogLevel.ERROR, "removeManifestTag ==> 找不到$tagName - $tagNameValue")
+        return
+    }
+    // 将修改后的 Xml 节点输出到目录中
+    new XmlNodePrinter(new PrintWriter(file)).print(root)
+    // 后续优化？加上校验
+    println "removeManifestTag ===> 剔除并且写入成功"
+}
+
+def printXmlNode(Node node) {
+    println("${node.name()} ===> ${node.attributes().toString()}")
+}
+
+android.getLibraryVariants().all { variant ->
+    variant.outputs.each() {
+        it.processManifest.doFirst { task ->
+            println "removeManifestTag ===> processManifest.doFirst buildType-${it.name}"
+//            println task.name
+//            println project.buildDir.getAbsolutePath()
+            def gtsdkManifestPath = "intermediates/exploded-aar/com.getui/gtsdk/3.2.10.0"
+            def manifestPath = "${project.buildDir.getAbsolutePath()}/${gtsdkManifestPath}/${it.name}"
+            removeManifestTag(manifestPath, "meta-data", "GETUI_APPID")
+        }
+    }
+}

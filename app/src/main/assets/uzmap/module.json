@@ -5,7 +5,7 @@
 			"class": "com.getui.moduledemo2.Demo2"
 		},
 		{
-			"name": "pushGeTui",
+			"name": "getuiPushTest",
 			"class": "com.getui.sdk.GetuiSDK"
 		}
 	]

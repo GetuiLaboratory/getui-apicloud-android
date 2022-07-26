@@ -7,6 +7,27 @@ android {
 
     //useLibrary 'org.apache.http.legacy'
 
+    signingConfigs {
+        debug {
+            keyAlias 'getui_demo'
+            keyPassword 'getuipush'
+            storeFile file('./src/getui_demo.keystore')
+            storePassword 'getuipush'
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            keyAlias 'getui_demo'
+            keyPassword 'getuipush'
+            storeFile file('./src/getui_demo.keystore')
+            storePassword 'getuipush'
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
     defaultConfig {
         applicationId project.ANDROID_BUILD_APP_PKG
         minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION.toInteger()
@@ -14,9 +35,26 @@ android {
         versionCode project.ANDROID_BUILD_VERSION_CODE.toInteger()
         versionName project.ANDROID_BUILD_VERSION_NAME
         multiDexEnabled true
-        manifestPlaceholders = [
-                GETUI_APPID: '替换您在个推https://www.getui.com/注册的APPID',
-        ]
+//        manifestPlaceholders = [
+//                GETUI_APPID: '替换您在个推https://www.getui.com/注册的APPID',
+//        ]
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true
+            zipAlignEnabled false
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+        }
     }
 
     lintOptions {

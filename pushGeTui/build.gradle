@@ -1,7 +1,7 @@
-plugins {
-    id 'com.android.library'
-    id 'com.kezong.fat-aar'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'com.kezong.fat-aar'
+apply from: './removeManifestTag.gradle'
+
 
 android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION.toInteger()

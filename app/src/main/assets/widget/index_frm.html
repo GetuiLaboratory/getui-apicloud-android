@@ -20,11 +20,11 @@
 
 		var getui = null;
 		apiready = function() {
-	    	getui = api.require('pushGeTui');
+	    	getui = api.require('getuiPushTest');
 	    }
 	    
 		function showToast() {
-			var param = {msg:"Hello pushGeTui!"};
+			var param = {msg:"Hello pushGeTui Test!"};
 			getui.showToast(param)
 		}
 
@@ -88,7 +88,7 @@
 
         function fetchClientId() {
             getui.fetchClientId(function(response, err) {
-                document.getElementById("txt_getui_cid").innerHTML = "初始化SDK（cid：" + ret.cid + "）";
+                document.getElementById("txt_getui_cid").innerHTML = "初始化SDK（cid：" + response.cid + "）";
             });
         }
 

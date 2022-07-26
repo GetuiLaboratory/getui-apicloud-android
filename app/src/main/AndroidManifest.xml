@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.apicloud.pkg.sdk"
+    package="com.gt.demo.mubai.push"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -54,13 +54,18 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="com.uzmap.pkg.uzapp.DataProvider"
             android:authorities="${applicationId}.upms"
             android:exported="false"
             android:grantUriPermissions="true" />
+
+        <meta-data
+            android:name="GETUI_APPID"
+            android:value=""
+            tools:replace="android:value"/>
     </application>
 
 </manifest>
