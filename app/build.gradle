@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
 
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION.toInteger()
@@ -35,9 +34,6 @@ android {
         versionCode project.ANDROID_BUILD_VERSION_CODE.toInteger()
         versionName project.ANDROID_BUILD_VERSION_NAME
         multiDexEnabled true
-//        manifestPlaceholders = [
-//                GETUI_APPID: '替换您在个推https://www.getui.com/注册的APPID',
-//        ]
     }
 
     buildTypes {
@@ -89,6 +85,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:support-v4:26.0.0'
     implementation 'com.android.support:multidex:1.0.1'
-
+//    implementation(name: 'pushGeTui-release', ext: 'aar')
     implementation project(':pushGeTui')
 }

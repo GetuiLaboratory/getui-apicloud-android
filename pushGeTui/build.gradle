@@ -1,7 +1,31 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.kezong.fat-aar'
-apply from: './removeManifestTag.gradle'
+apply from: './config.gradle'
 
+if (MULTI_ENABLED && MULTI_ITEM_ENABLED.HUAWEI) {
+    apply plugin: 'com.huawei.agconnect'
+}
+if (REMOVE_MANIFEST_TAG_EANBLED) {
+    apply from: './processResFiles.gradle'
+}
+
+
+File localPropsFile = project.file("local.properties")
+if (localPropsFile.exists()) {
+    Properties p = new Properties()
+    p.load(new FileInputStream(localPropsFile))
+    p.each {
+        ext[it.key] = it.value
+    }
+}
+
+def newImplementation(String dep) {
+    if (LOCAL_RUN) {
+        project.getDependencies().implementation(dep)
+    } else {
+        project.getDependencies().embed(dep)
+    }
+}
 
 android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION.toInteger()
@@ -38,6 +62,20 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar'])
     compileOnly files('../app/libs/apiEngine v3.0.0.jar')
 
-    embed 'com.getui:gtsdk:3.2.10.0'
-    embed 'com.getui:gtc:3.1.9.0' //latest.release
+    embed "com.getui:gtsdk:${GTSDK_VERSION}"
+    embed "com.getui:gtc:${GTC_VERSION}" //latest.release
+
+    if (MULTI_ENABLED) {
+        // 根据所需厂商选择集成
+        if (MULTI_ITEM_ENABLED.HUAWEI) {
+            embed "com.huawei.hms:push:${MULTI_ITEM_VERSION.HUAWEI_PUSH}"
+            embed "com.getui.opt:hwp:${MULTI_ITEM_VERSION.HUAWEI}"
+        }
+        if (MULTI_ITEM_ENABLED.XIAOMI) embed "com.getui.opt:xmp:${MULTI_ITEM_VERSION.XIAOMI}"
+        if (MULTI_ITEM_ENABLED.OPPO) embed "com.assist-v3:oppo:${MULTI_ITEM_VERSION.OPPO}"
+        if (MULTI_ITEM_ENABLED.VIVO) embed "com.assist-v3:vivo:${MULTI_ITEM_VERSION.VIVO}"
+        if (MULTI_ITEM_ENABLED.MEIZU) embed "com.getui.opt:mzp:${MULTI_ITEM_VERSION.MEIZU}"
+        if (MULTI_ITEM_ENABLED.UPS) embed "com.getui.opt:ups:${MULTI_ITEM_VERSION.UPS}"
+    }
+
 }

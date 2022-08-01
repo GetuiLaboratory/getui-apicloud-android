@@ -41,19 +41,48 @@ APPKEY/APPID：从个推平台上的获得的应用标识
 2. 在 `APICloud Studio` 中替换您APP应用参数
 ```xml
 <meta-data name="GETUI_APPID" value="替换您在个推https://www.getui.com/注册的APPID"/>
+
+<!-- 下面是多厂商参数 -->
+<meta-data android:name="com.huawei.hms.client.appid" android:value="appid=替换您华为渠道APPID" />
+
+<meta-data android:name="OPPOPUSH_APPKEY" android:value="OP_替换您OPPO渠道的APPKEY" />
+<meta-data android:name="OPPOPUSH_APPSECRET" android:value="OP_替换您OPPO渠道的APPSECRET}" />
+
+<meta-data android:name="com.vivo.push.app_id" android:value="替换您VIVO渠道的APPID" />
+<meta-data android:name="com.vivo.push.api_key" android:value="替换您VIVO渠道的APPKEY" />
+
+<meta-data android:name="MEIZUPUSH_APPID" android:value="MZ_替换您魅族渠道的APPID" />
+<meta-data android:name="MEIZUPUSH_APPKEY" android:value="MZ_替换您魅族渠道的APPKEY" />
+
+<meta-data android:name="MIPUSH_APPID" android:value="XM_替换您小米渠道的APPID" />
+<meta-data android:name="MIPUSH_APPKEY" android:value="XM_替换您小米渠道的APPKEY" />
+```
+**华为渠道接入需要完成配置文件读取**
+```java
+AGConnectServicesConfig config = AGConnectServicesConfig.fromContext(context);
+        config.overlayWith(new LazyInputStream(context) {
+            public InputStream get(Context context) {
+                try {
+                    Log.d("Assist_", "-------->huawei------read config");
+                    return context.getAssets().open("agconnect-services.json");
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+        });
 ```
 
-4. 应用启动后调用 initialize 进行推送 SDK 初始化，并调用 register接口注册透传消息监听器；
+3. 应用启动后调用 initialize 进行推送 SDK 初始化，并调用 register接口注册透传消息监听器；
 
-5. 推送服务获取到推送标识CID后返回给JS层，应用一般需要将该CID和用户ID做一个绑定，记录到服务端；
+4. 推送服务获取到推送标识CID后返回给JS层，应用一般需要将该CID和用户ID做一个绑定，记录到服务端；
 
-6. 服务端指定CID进行透传消息推送（可以通过个推开放平台直接操作，也可以使用服务端 SDK 调用消息推送接口），携带透传消息内容 Payload
+5. 服务端指定CID进行透传消息推送（可以通过个推开放平台直接操作，也可以使用服务端 SDK 调用消息推送接口），携带透传消息内容 Payload
 
-7. 推送服务接收到消息后，通过 register 接口注册的消息监听器回调给JS层
+6. 推送服务接收到消息后，通过 register 接口注册的消息监听器回调给JS层
 
-8. JS 层处理透传消息内容 Payload ，进行相应的处理。
+7. JS 层处理透传消息内容 Payload ，进行相应的处理。
 
-9. 服务端也可以指定 CID 进行通知消息推送，通知点击后启动 APICloud 应用。
+8. 服务端也可以指定 CID 进行通知消息推送，通知点击后启动 APICloud 应用。
 
 ## 关于透传消息
 受到 JS 层目前机制限制，如果 apicloud 应用未运行， JS 层是无法处理透传数据的。

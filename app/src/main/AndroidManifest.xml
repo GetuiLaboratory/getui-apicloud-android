@@ -23,7 +23,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.uzmap.pkg.uzapp.UZApplication"
+        android:name=".MyApplication"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
@@ -62,10 +62,6 @@
             android:exported="false"
             android:grantUriPermissions="true" />
 
-        <meta-data
-            android:name="GETUI_APPID"
-            android:value=""
-            tools:replace="android:value"/>
     </application>
 
 </manifest>
