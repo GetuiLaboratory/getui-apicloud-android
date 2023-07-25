@@ -1,6 +1,6 @@
 ext {
-    GTSDK_VERSION = '3.2.10.0'
-    GTC_VERSION = '3.1.9.0'
+    GTSDK_VERSION = '3.2.19.0'
+    GTC_VERSION = '3.2.6.0'
 
     REMOVE_MANIFEST_TAG_EANBLED = true
     //多厂商开关

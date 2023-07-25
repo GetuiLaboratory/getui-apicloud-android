@@ -1038,7 +1038,7 @@ Android系统
 
 
 # 三，Android工程的插件包打包方法
-在getui-apicloud-android工程中个推SDK插件配置完成后，在工程所在目录的终端命令行，运行./gradlew apicloudRelease 指令，即可在build目录下生成pushGeTui插件的文件夹与zip文件。
+在getui-apicloud-android工程中个推SDK插件配置完成后，在工程所在目录的终端命令行，运行./gradlew assembleRelease 指令，即可在build/outputs/aar目录下生成pushGeTui插件的产物。
 
 # 四，个推SDK的APICloud官网文档
 APICloud的个推SDK接口文档，具体可见
