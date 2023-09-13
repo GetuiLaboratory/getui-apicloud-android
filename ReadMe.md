@@ -41,35 +41,6 @@ APPKEY/APPID：从个推平台上的获得的应用标识
 2. 在 `APICloud Studio` 中替换您APP应用参数
 ```xml
 <meta-data name="GETUI_APPID" value="替换您在个推https://www.getui.com/注册的APPID"/>
-
-<!-- 下面是多厂商参数 -->
-<meta-data android:name="com.huawei.hms.client.appid" android:value="appid=替换您华为渠道APPID" />
-
-<meta-data android:name="OPPOPUSH_APPKEY" android:value="OP_替换您OPPO渠道的APPKEY" />
-<meta-data android:name="OPPOPUSH_APPSECRET" android:value="OP_替换您OPPO渠道的APPSECRET}" />
-
-<meta-data android:name="com.vivo.push.app_id" android:value="替换您VIVO渠道的APPID" />
-<meta-data android:name="com.vivo.push.api_key" android:value="替换您VIVO渠道的APPKEY" />
-
-<meta-data android:name="MEIZUPUSH_APPID" android:value="MZ_替换您魅族渠道的APPID" />
-<meta-data android:name="MEIZUPUSH_APPKEY" android:value="MZ_替换您魅族渠道的APPKEY" />
-
-<meta-data android:name="MIPUSH_APPID" android:value="XM_替换您小米渠道的APPID" />
-<meta-data android:name="MIPUSH_APPKEY" android:value="XM_替换您小米渠道的APPKEY" />
-```
-**华为渠道接入需要完成配置文件读取**
-```java
-AGConnectServicesConfig config = AGConnectServicesConfig.fromContext(context);
-        config.overlayWith(new LazyInputStream(context) {
-            public InputStream get(Context context) {
-                try {
-                    Log.d("Assist_", "-------->huawei------read config");
-                    return context.getAssets().open("agconnect-services.json");
-                } catch (IOException e) {
-                    return null;
-                }
-            }
-        });
 ```
 
 3. 应用启动后调用 initialize 进行推送 SDK 初始化，并调用 register接口注册透传消息监听器；
@@ -1038,7 +1009,7 @@ Android系统
 
 
 # 三，Android工程的插件包打包方法
-在getui-apicloud-android工程中个推SDK插件配置完成后，在工程所在目录的终端命令行，运行./gradlew assembleRelease 指令，即可在build/outputs/aar目录下生成pushGeTui插件的产物。
+在getui-apicloud-android工程中个推SDK插件配置完成后，在工程所在目录的终端命令行，运行./gradlew assembleRelease 指令，即可在release/目录下生成pushGeTui插件的产物。
 
 # 四，个推SDK的APICloud官网文档
 APICloud的个推SDK接口文档，具体可见
