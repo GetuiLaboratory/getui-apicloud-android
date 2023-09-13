@@ -1,4 +1,4 @@
-# 个推 APICloud Android SDK集成文档
+# 个推 APICloud Android SDK 海外版（google play）集成文档
 
 ---
 
