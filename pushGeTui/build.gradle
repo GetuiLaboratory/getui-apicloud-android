@@ -36,7 +36,7 @@ dependencies {
     compileOnly files('../app/libs/apiEngine v3.0.0.jar')
 
     embed "com.getui:sdk-for-gj:4.4.3.4"
-    embed "com.getui:gtc-for-google-play:3.1.9.10" //latest.release
+//    embed "com.getui:gtc-for-google-play:3.1.9.10" //latest.release
 
 }
 
