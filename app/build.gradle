@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 android {
 
-    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION.toInteger()
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+//    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION.toInteger()
+//    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     //useLibrary 'org.apache.http.legacy'
 
