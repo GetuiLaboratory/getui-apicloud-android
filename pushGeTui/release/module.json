@@ -1,0 +1,8 @@
+{
+	"modules":[
+		{
+			"name": "GTPush",
+			"class": "com.getui.sdk.GetuiSDK"
+		}
+	]
+}
