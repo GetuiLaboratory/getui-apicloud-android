@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.getui.sdk">
+    <!-- YonBuilder移动开发云编译依赖的android支持库默认为support-v4:26.0.0版本，
+    如果您的原生插件希望依赖androidx作为支持库，则需要在原生插件导出的aar中增加相应的标识。
+    具体做法：在相应原生插件AndroidManifest.xml的manifest节点下
+    增加name为“android.useAndroidX”的meta-data，并将value置为true>-->
+    <!--oppo厂商会使用annotation-->
+    <meta-data android:name="android.useAndroidX" android:value="true" />
 
     <application>
         <!-- 作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
@@ -12,7 +18,6 @@
             android:exported="true"
             android:label="PushService"
             android:process=":pushservice" />
-
     </application>
 
     <!-- 适配android 11及以上，强烈建议加上 -->

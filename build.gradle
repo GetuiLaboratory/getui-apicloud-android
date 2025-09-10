@@ -2,6 +2,10 @@
 
 buildscript {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
         mavenCentral()
         google()
         maven { url 'https://mvn.getui.com/nexus/content/repositories/releases/' }
@@ -25,6 +29,10 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
         mavenCentral()
         google()
         maven { url 'https://mvn.getui.com/nexus/content/repositories/releases/' }

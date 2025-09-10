@@ -73,7 +73,9 @@ dependencies {
             embed "com.getui.opt:hwp:${MULTI_ITEM_VERSION.HUAWEI}"
         }
         if (MULTI_ITEM_ENABLED.XIAOMI) embed "com.getui.opt:xmp:${MULTI_ITEM_VERSION.XIAOMI}"
-        if (MULTI_ITEM_ENABLED.OPPO) embed "com.assist-v3:oppo:${MULTI_ITEM_VERSION.OPPO}"
+        if (MULTI_ITEM_ENABLED.OPPO) embed ("com.assist-v3:oppo:${MULTI_ITEM_VERSION.OPPO}"){
+            exclude group: 'androidx.annotation', module: 'annotation'
+        }
         if (MULTI_ITEM_ENABLED.VIVO) embed "com.assist-v3:vivo:${MULTI_ITEM_VERSION.VIVO}"
         if (MULTI_ITEM_ENABLED.MEIZU) embed "com.getui.opt:mzp:${MULTI_ITEM_VERSION.MEIZU}"
         if (MULTI_ITEM_ENABLED.UPS) embed "com.getui.opt:ups:${MULTI_ITEM_VERSION.UPS}"
