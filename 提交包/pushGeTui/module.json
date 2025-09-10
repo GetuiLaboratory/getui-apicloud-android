@@ -1,8 +1,4 @@
 {
-	"modules":[
-		{
-			"name": "pushGeTui",
-			"class": "com.getui.sdk.GetuiSDK"
-		}
-	]
+	"name": "pushGeTui",
+	"class": "com.getui.sdk.GetuiSDK"
 }
