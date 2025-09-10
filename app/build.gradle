@@ -34,6 +34,9 @@ android {
         versionCode project.ANDROID_BUILD_VERSION_CODE.toInteger()
         versionName project.ANDROID_BUILD_VERSION_NAME
         multiDexEnabled true
+        manifestPlaceholders = [
+                GETUI_APPID  : "djYjSlFVMf6p5YOy2OQUs8",
+                 ]
     }
 
     buildTypes {

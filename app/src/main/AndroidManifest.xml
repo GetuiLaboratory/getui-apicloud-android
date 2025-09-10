@@ -30,7 +30,9 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         tools:replace="android:icon,android:allowBackup">
-
+        <meta-data
+            android:name="GETUI_APPID"
+            android:value="${GETUI_APPID}" />
         <meta-data
             android:name="uz_version"
             android:value="1.2.0" />

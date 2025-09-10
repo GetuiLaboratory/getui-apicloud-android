@@ -1,6 +1,6 @@
 ext {
-    GTSDK_VERSION = '3.2.19.0'
-    GTC_VERSION = '3.2.6.0'
+    GTSDK_VERSION = '3.3.12.0'
+    GTC_VERSION = '3.2.18.0'
 
     REMOVE_MANIFEST_TAG_EANBLED = true
     //多厂商开关
@@ -12,16 +12,19 @@ ext {
             OPPO  : true,
             VIVO  : true,
             MEIZU : true,
-            UPS   : true
+            UPS   : true,
+            HONOR   : true
     ]
     MULTI_ITEM_VERSION = [
+            //HUAWEI升级有太多资源重复无法合并, 当前版本不处理
             HUAWEI: '3.1.0',
             HUAWEI_PUSH: '6.5.0.300',
-            XIAOMI: '3.2.0',
-            OPPO  : '3.1.0',
-            VIVO  : '3.1.0',
-            MEIZU : '3.2.0',
-            UPS   : '3.0.3'
+            XIAOMI: '3.3.3',
+            OPPO  : '3.5.0',
+            VIVO  : '3.2.0',
+            MEIZU : '3.3.0',
+            UPS   : '3.0.3',
+            HONOR : '3.6.0'
     ]
 }
 

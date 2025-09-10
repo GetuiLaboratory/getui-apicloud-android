@@ -48,14 +48,16 @@ APPKEY/APPID：从个推平台上的获得的应用标识
 <meta-data android:name="OPPOPUSH_APPKEY" android:value="OP_替换您OPPO渠道的APPKEY" />
 <meta-data android:name="OPPOPUSH_APPSECRET" android:value="OP_替换您OPPO渠道的APPSECRET}" />
 
-<meta-data android:name="com.vivo.push.app_id" android:value="替换您VIVO渠道的APPID" />
-<meta-data android:name="com.vivo.push.api_key" android:value="替换您VIVO渠道的APPKEY" />
+<meta-data android:name="app_id" android:value="替换您VIVO渠道的APPID" />
+<meta-data android:name="api_key" android:value="替换您VIVO渠道的APPKEY" />
 
 <meta-data android:name="MEIZUPUSH_APPID" android:value="MZ_替换您魅族渠道的APPID" />
 <meta-data android:name="MEIZUPUSH_APPKEY" android:value="MZ_替换您魅族渠道的APPKEY" />
 
 <meta-data android:name="MIPUSH_APPID" android:value="XM_替换您小米渠道的APPID" />
 <meta-data android:name="MIPUSH_APPKEY" android:value="XM_替换您小米渠道的APPKEY" />
+
+<meta-data android:name="com.hihonor.push.app_id" android:value="替换您荣耀渠道的APPID" />
 ```
 **华为渠道接入需要完成配置文件读取**
 ```java

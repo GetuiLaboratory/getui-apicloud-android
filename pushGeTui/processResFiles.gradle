@@ -1,4 +1,4 @@
-// 过滤删除 com.getui:gtsdk:3.2.10.0
+// 过滤删除 com.getui:gtsdk:3.3.12.0
 // <meta-data android:name="GETUI_APPID" android:value="${GETUI_APPID}" />
 
 class XmlBean {
@@ -109,10 +109,11 @@ def buildValuesXmlList(String buildType) {
     huaweiPushValueXmlBean.addXmlTag(stringTagName,"push_cat_body") //99A9343CEC0A64112FD2496EF752F719
     huaweiPushValueXmlBean.addXmlTag(stringTagName,"push_cat_head") //767499AE5B2DFC9D873AF46032E13B00
 
+    XmlBean getuiValueXmlBean = new XmlBean("${parentPath}/com.getui/gtsdk/${GTSDK_VERSION}/${buildType}/res/values/", valueFileName, stringTagName, "app_name")
     XmlBean meizuValueXmlBean = new XmlBean("${parentPath}/com.getui.opt/mzp/${MULTI_ITEM_VERSION.MEIZU}/${buildType}/res/values/", valueFileName, stringTagName, "app_name")
     XmlBean xiaomiValueXmlBean = new XmlBean("${parentPath}/com.getui.opt/xmp/${MULTI_ITEM_VERSION.XIAOMI}/${buildType}/res/values/", valueFileName, stringTagName, "app_name")
     XmlBean upsValueXmlBean = new XmlBean("${parentPath}/com.getui.opt/ups/${MULTI_ITEM_VERSION.UPS}/${buildType}/res/values/", valueFileName, stringTagName, "app_name")
-
+    xmlList.add(getuiValueXmlBean)
     if (MULTI_ITEM_ENABLED.HUAWEI) xmlList.add(huaweiPushValueXmlBean)
     if (MULTI_ITEM_ENABLED.MEIZU) xmlList.add(meizuValueXmlBean)
     if (MULTI_ITEM_ENABLED.XIAOMI) xmlList.add(xiaomiValueXmlBean)
@@ -134,8 +135,8 @@ def buildManifestXmlList(String buildType) {
     oppoXmlBean.addXmlTag(metaTagName, "OPPOPUSH_APPSECRET")
 
     XmlBean vivoXmlBean = new XmlBean("${parentPath}/com.assist-v3/vivo/${MULTI_ITEM_VERSION.VIVO}/${buildType}", manifestFileName)
-    vivoXmlBean.addXmlTag(metaTagName, "com.vivo.push.api_key")
-    vivoXmlBean.addXmlTag(metaTagName, "com.vivo.push.app_id")
+    vivoXmlBean.addXmlTag(metaTagName, "api_key")
+    vivoXmlBean.addXmlTag(metaTagName, "app_id")
 
     XmlBean huaweiXmlBean = new XmlBean("${parentPath}/com.getui.opt/hwp/${MULTI_ITEM_VERSION.HUAWEI}/${buildType}",
             manifestFileName, metaTagName, "com.huawei.hms.client.appid")
@@ -148,12 +149,17 @@ def buildManifestXmlList(String buildType) {
     xiaomiXmlBean.addXmlTag(metaTagName, "MIPUSH_APPID")
     xiaomiXmlBean.addXmlTag(metaTagName, "MIPUSH_APPKEY")
 
+
+    XmlBean honorXmlBean = new XmlBean("${parentPath}/com.getui.opt/honor/${MULTI_ITEM_VERSION.HONOR}/${buildType}/", manifestFileName)
+    honorXmlBean.addXmlTag(metaTagName, "com.hihonor.push.app_id")
+
     xmlList.add(gtsdkXmlBean)
     if (MULTI_ITEM_ENABLED.OPPO) xmlList.add(oppoXmlBean)
     if (MULTI_ITEM_ENABLED.VIVO) xmlList.add(vivoXmlBean)
     if (MULTI_ITEM_ENABLED.HUAWEI) xmlList.add(huaweiXmlBean)
     if (MULTI_ITEM_ENABLED.MEIZU) xmlList.add(meizuXmlBean)
     if (MULTI_ITEM_ENABLED.XIAOMI) xmlList.add(xiaomiXmlBean)
+    if (MULTI_ITEM_ENABLED.HONOR) xmlList.add(honorXmlBean)
 
     return xmlList
 }
